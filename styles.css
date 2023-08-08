@@ -1,0 +1,97 @@
+/* Styling for the specific button */
+#expandButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+/* Styling for the arrow icon inside the specific button */
+#arrowIcon {
+  margin-left: 3px;
+}
+
+      .battle-box {
+        border: 2px solid #ccc;
+        padding: 5px;
+        margin-bottom: 5px;
+      }
+
+      .battle-box h3 {
+        margin-top: 0;
+      }
+
+      .battle-box table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .battle-box th,
+      .battle-box td {
+        padding: 5px;
+        text-align: center;
+        border: 1px solid #ccc;
+      }
+
+      .battle-box .army {
+        font-weight: bold;
+      }
+
+      .battle-box .title {
+        font-style: italic;
+      }
+
+      .battle-box .casualties {
+        font-size: 0.9em;
+      }
+
+      .battle-box .total-casualties {
+        margin: 5px 0;
+      }
+
+      .battle-box .winner {
+        font-weight: bold;
+        color: green;
+      }
+
+      .outcome.neutral {
+        color: black;
+      }
+
+      .outcome.attackers {
+        color: red;
+      }
+
+      .outcome.defenders {
+        color: blue;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        /* Horizontally center the items */
+      }
+
+      .container>div {
+        margin-right: 20px;
+      }
+
+        .army-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+        }
+
+        .center {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100px;
+        }
+		
+.single-article hr {
+    margin: 30px -20px 20px;
+    border: 0;
+    border-top: 1px solid #c9c7c7;
+}
+

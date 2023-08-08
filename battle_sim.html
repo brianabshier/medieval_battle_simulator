@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Medieval Battle Simulator</title>
+	<link rel="stylesheet" href="styles.css"> </head>
+
+<body>
+	<center>
+		<h1>Medieval Battle Simulator</h1> </center>
+	<center>
+	<hr>
+		<div>
+			<input id="battle-title" placeholder="Enter a Name for the Battle" style="width: 300px; text-align: center;" type="text">
+			<button id="random-title-button" style="margin-left: 5px;"> <span>&#9850;</span> </button>
+		</div>
+		<div>
+			<input id="battle-date" placeholder="Enter a Date for the Battle" style="width: 300px; text-align: center;" type="text">
+			<button id="random-date-button" style="margin-left: 5px;"> <span>&#9850;</span> </button>
+		</div>
+	</center>
+	<div class="army-container">
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<h2>
+          <input id="attacker-title" placeholder="Enter a Name for the Attackers" style="width: 300px; text-align: center; border: 3px outset red;" type="text">
+          <button id="random-attacker-title-button">
+            <span>&#9850;</span>
+          </button>
+        </h2>
+			<div style="display: flex; flex-direction: column; align-items: flex-start;">
+				<label for="att-commander" title="Enter the name of the commander">Commander:</label>
+				<input id="att-commander" placeholder="Enter a Name" style="width: 367px; text-align: center; border: 3px outset red;" type="text">
+				<button id="random-att-commander-button"> <span>&#9850;</span> </button>
+				<br>
+				<label for="attackers" title="Named characters in the battle">Notables:</label>
+				<textarea cols="50" id="attackers" placeholder="Enter attacker names, separated by commas" rows="2" style="border: 3px outset red;"></textarea>
+				<button id="random-attackers-button" style="margin-top: 5px;"> <span>&#9850;</span> </button>
+				<br>
+<button id="expandButton" onclick="toggleAttArmyTable()">Army Table  <span id="arrowIcon">&#9658;</span> <!-- The arrow icon (Right-pointing triangle) -->
+</button>
+<table id="att-armyTable" style="display: none;">
+ <tr>
+   <th colspan="3">Cavalry</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-knights" title="A man-at-arms is a knight, retainer, or mercenary who serves as a fully-armoured heavy cavalryman. Very effective attacker and defender. Performs poorly in forests, mountains, and mud.">Men-at-Arms:</label>
+ </td>
+ <td>
+ <input id="att-knights" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 10</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-lightcav" title="Lightly armed and armored cavalry troops mounted on fast horses. They excel in raiding, skirmishing, patrolling and tactical communications. They are more mobile and less impacted by terrain than the heavier men-at-arms.">Light Cavalry:</label>
+ </td>
+ <td>
+ <input id="att-lightcav" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-cavarcher" title="A cavalryman armed with a bow and able to shoot while riding from horseback. Very effective when fighting on even clear ground. Also effective in ambushes and raids.">Mounted Archers:</label>
+ </td>
+ <td>
+ <input id="att-cavarcher" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+   <th colspan="3">Infantry</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-pikemen" title="A soldier armed with a pike. Very effective defender in open battle.">Pikemen:</label>
+ </td>
+ <td>
+ <input id="att-pikemen" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-halberd" title="A soldier armed with a halberd. Excellent attack and good defense.">Halberdiers:</label>
+ </td>
+ <td>
+ <input id="att-halberd" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-infantry" title="Soldiers armed with spears, axes, maces, and other shorter weapons. Effective in forests, mountains, sieges, ambushes, and raids.">Infantry:</label>
+ </td>
+ <td>
+ <input id="att-infantry" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-skirmishers" title="A lightly armed and agile soldier who excels in irregular warfare, often operating in small groups to harass and disrupt enemy forces. Performs best in rough terrain and adverse weather.">Skirmishers:</label>
+ </td>
+ <td>
+ <input id="att-skirmishers" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 3</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-levy" title="Commoners ill-or non-skilled in combat, who have rudimentary weapons and little-to-no armor. Perform best when defending in camps, sieges, forests, or mountains.">Peasant Levy:</label>
+ </td>
+ <td>
+ <input id="att-levy" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 2</td>
+ </tr>
+ <tr>
+   <th colspan="3">Ranged</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-archers" title="Soldiers armed with a bow. Good in defense, performs better against less armored opponents.">Archers:</label>
+ </td>
+ <td>
+ <input id="att-archers" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 4</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-crossbow" title="Soldiers armed with a crossbow. Excellent in defense, especially in sieges.">Crossbowmen:</label>
+ </td>
+ <td>
+ <input id="att-crossbow" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 5</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-handgunner" title="A firearm-wielding soldier who operated a handheld gunpowder weapon called a handgonne. Excellent defender, but wet weather greatly reduces effectiveness.">Handgunners:</label>
+ </td>
+ <td>
+ <input id="att-handgunner" oninput="updateCumulativeTotal('att')" type="number" min="0" value="0" step="100" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+   <th colspan="3">Artillery</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="att-lightguns" title="Smaller bore artillery guns such as a ribauldequin or culverin that were more mobile, quicker to fire, and more effective in the field against formations of enemy soldiers. Wet weather greatly reduces effectiveness.">Light Guns:</label>
+ </td>
+ <td>
+ <input id="att-lightguns" oninput="updateCumulativeTotal('att')" type="number" min="0"  max="75" value="0" step="5" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 7</td>
+ <tr>
+ <td>
+ <label for="att-mecharty" title="Mechanical artillery consists of tension, torsion, and lever based artillery systems such as trebuchets, mangonels, catapults, etc. They are effective in sieges, and are not impacted by wet conditions like gunpowder siege engines are.">Mechanical Artillery:</label>
+ </td>
+ <td>
+ <input id="att-mecharty" oninput="updateCumulativeTotal('att')" type="number" min="0"  max="75" value="0" step="5" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 7</td>
+ <tr>
+ <td>
+ <label for="att-bombards" title="Large calibre, muzzle-loading artillery pieces used during sieges to shoot round stone projectiles at the walls of enemy fortifications. Outstanding attack in sieges, but wet weather greatly impedes performance.">Bombards:</label>
+ </td>
+ <td>
+ <input id="att-bombards" oninput="updateCumulativeTotal('att')" type="number" min="0" max="75" value="0" step="5" style="border: 3px outset red;">
+ </td>
+ <td>Cost: 10</td>
+ </tr>
+ </table>
+ Morale:
+ <select id="attacker-morale">
+   <option value="high">High</option>
+   <option value="average">Average</option>
+   <option value="low">Low</option>
+ </select>
+ <label for="att-preset-army">Select Preset Army:</label>
+ <select id="att-preset-army" onchange="applyPresetAttArmy()">
+   <option value="att-default">Empty Army</option>
+   <option value="att-medieval-europe-early">Early Medieval European</option>
+   <option value="att-medieval-europe">High Medieval European</option>
+   <option value="att-medieval-europe-late">Late Medieval European</option>
+   <option value="att-mongols">Mongol Horde</option>
+   <option value="att-medieval-europe-peasant">High Medieval Peasant Rebels</option>
+   <!-- Add more preset options as needed -->
+ </select>
+				<button onclick="randomlyFillInputs('att')">Auto-Fill</button>
+				<button onclick="resetInputs('att')">Reset</button>
+				<strong>Logistics</strong>
+				<font size="2">
+				<p id="att-points" style="line-height: 0.01;"></p>
+				<p id="att-total" style="line-height: 0.01;" ></p>
+				<p id="att-grain" style="line-height: 0.01;"></p>
+				<p id="att-fodder" style="line-height: 0.01;"></p>
+				<p id="att-ammunition" style="line-height: 0.01;"></p>
+				<p id="att-oxcarts" style="line-height: 0.01;"></p>
+				<p id="att-marching-distance" style="line-height: 0.01;"></p>
+			</font size="2">
+
+			</div>
+		</div>
+		
+ 
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<h2>
+          <input id="defender-title" placeholder="Enter a Name for the Defenders" style="width: 300px; text-align: center; border: 3px outset blue;" type="text">
+          <button id="random-defender-title-button">
+            <span>&#9850;</span>
+          </button>
+        </h2>
+			<div style="display: flex; flex-direction: column; align-items: flex-start;">
+				<label for="def-commander" title="Enter the name of the commander">Commander:</label>
+				<input id="def-commander" placeholder="Enter a Name" style="width: 367px; text-align: center; border: 3px outset blue;" type="text">
+				<button id="random-def-commander-button"> <span>&#9850;</span> </button>
+				<br>
+				<label for="attackers" title="Named characters in the battle">Notables:</label>
+				<textarea cols="50" id="defenders" placeholder="Enter defender names, separated by commas" rows="2" style="border: 3px outset blue;"></textarea>
+				<button id="random-defenders-button" style="margin-top: 5px;"> <span>&#9850;</span> </button>
+				<br>
+				
+<style>
+    table {
+      font-size: 13px; /* Adjust the value to your desired font size for the table */
+    }
+
+    input {
+      font-size: 12px; /* Adjust the value to your desired font size for the input fields */
+    }
+    table {
+      border-collapse: collapse;
+      border: 1px solid #000; /* Adjust the color and thickness as desired */
+    }
+
+    th, td {
+      border: 1px solid #000; /* Adjust the color and thickness as desired */
+      padding: 1px; /* Adjust the padding as desired */
+      text-align: left; /* Align the content within cells */
+    }
+</style>
+
+<button id="expandButton" onclick="toggleArmyTable()">Army Table   <span id="arrowIcon">&#9658;</span> <!-- The arrow icon (Right-pointing triangle) -->
+</button>
+<table id="armyTable" style="display: none;">
+ <tr>
+   <th colspan="3">Cavalry</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-knights" title="A man-at-arms is a knight, retainer, or mercenary who serves as a fully-armoured heavy cavalryman. Very effective attacker and defender. Performs poorly in forests, mountains, and mud.">Men-at-Arms:</label>
+ </td>
+ <td>
+ <input id="def-knights" oninput="updateCumulativeTotal('def)" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 10</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-lightcav" title="Lightly armed and armored cavalry troops mounted on fast horses. They excel in raiding, skirmishing, patrolling and tactical communications. They are more mobile and less impacted by terrain than the heavier men-at-arms.">Light Cavalry:</label>
+ </td>
+ <td>
+ <input id="def-lightcav" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-cavarcher" title="A cavalryman armed with a bow and able to shoot while riding from horseback. Very effective when fighting on even clear ground. Also effective in ambushes and raids.">Mounted Archers:</label>
+ </td>
+ <td>
+ <input id="def-cavarcher" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+   <th colspan="3">Infantry</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-pikemen" title="A soldier armed with a pike. Very effective defender in open battle.">Pikemen:</label>
+ </td>
+ <td>
+ <input id="def-pikemen" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-halberd" title="A soldier armed with a halberd. Excellent attack and good defense.">Halberdiers:</label>
+ </td>
+ <td>
+ <input id="def-halberd" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-infantry" title="Soldiers armed with spears, axes, maces, and other shorter weapons. Effective in forests, mountains, sieges, ambushes, and raids.">Infantry:</label>
+ </td>
+ <td>
+ <input id="def-infantry" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-skirmishers" title="A lightly armed and agile soldier who excels in irregular warfare, often operating in small groups to harass and disrupt enemy forces. Performs best in rough terrain and adverse weather.">Skirmishers:</label>
+ </td>
+ <td>
+ <input id="def-skirmishers" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 3</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-levy" title="Commoners ill-or non-skilled in combat, who have rudimentary weapons and little-to-no armor. Perform best when defending in camps, sieges, forests, or mountains.">Peasant Levy:</label>
+ </td>
+ <td>
+ <input id="def-levy" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 2</td>
+ </tr>
+ <tr>
+   <th colspan="3">Ranged</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-archers" title="Soldiers armed with a bow. Good in defense, performs better against less armored opponents.">Archers:</label>
+ </td>
+ <td>
+ <input id="def-archers" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 4</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-crossbow" title="Soldiers armed with a crossbow. Excellent in defense, especially in sieges.">Crossbowmen:</label>
+ </td>
+ <td>
+ <input id="def-crossbow" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 5</td>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-handgunner" title="A firearm-wielding soldier who operated a handheld gunpowder weapon called a handgonne. Excellent defender, but wet weather greatly blueuces effectiveness.">Handgunners:</label>
+ </td>
+ <td>
+ <input id="def-handgunner" oninput="updateCumulativeTotal('def')" type="number" min="0" value="0" step="100" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 6</td>
+ </tr>
+ <tr>
+   <th colspan="3">Artillery</th>
+ </tr>
+ <tr>
+ <td>
+ <label for="def-lightguns" title="Smaller bore artillery guns such as a ribauldequin or culverin that were more mobile, quicker to fire, and more effective in the field against formations of enemy soldiers. Wet weather greatly blueuces effectiveness.">Light Guns:</label>
+ </td>
+ <td>
+ <input id="def-lightguns" oninput="updateCumulativeTotal('def')" type="number" min="0"  max="75" value="0" step="5" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 7</td>
+ <tr>
+ <td>
+ <label for="def-mecharty" title="Mechanical artillery consists of tension, torsion, and lever based artillery systems such as trebuchets, mangonels, catapults, etc. They are effective in sieges, and are not impacted by wet conditions like gunpowder siege engines are.">Mechanical Artillery:</label>
+ </td>
+ <td>
+ <input id="def-mecharty" oninput="updateCumulativeTotal('def')" type="number" min="0"  max="75" value="0" step="5" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 7</td>
+ <tr>
+ <td>
+ <label for="def-bombards" title="Large calibre, muzzle-loading artillery pieces used during sieges to shoot round stone projectiles at the walls of enemy fortifications. Outstanding attack in sieges, but wet weather greatly impedes performance.">Bombards:</label>
+ </td>
+ <td>
+ <input id="def-bombards" oninput="updateCumulativeTotal('def')" type="number" min="0" max="75" value="0" step="5" style="border: 3px outset blue;">
+ </td>
+ <td>Cost: 10</td>
+ </tr>
+ </table>
+ Morale:
+ <select id="defender-morale">
+   <option value="high">High</option>
+   <option value="average">Average</option>
+   <option value="low">Low</option>
+ </select>
+ <label for="def-preset-army">Select Preset Army:</label>
+ <select id="def-preset-army" onchange="applyPresetDefArmy()">
+   <option value="def-default">Empty Army</option>
+   <option value="def-medieval-europe-early">Early Medieval European</option>
+   <option value="def-medieval-europe">High Medieval European</option>
+   <option value="def-medieval-europe-late">Late Medieval European</option>
+   <option value="def-mongols">Mongol Horde</option>
+   <option value="def-medieval-europe-peasant">High Medieval Peasant Rebels</option>
+   <!-- Add more preset options as needed -->
+ </select>
+				<button onclick="randomlyFillInputs('def')">Auto-Fill</button>
+				<button onclick="resetInputs('def')">Reset</button>
+													<strong>Logistics</strong>
+								<font size="2">
+				<p id="def-points" style="line-height: 0.01;"></p>
+				<p id="def-total" style="line-height: 0.01;"></p>
+				<p id="def-grain" style="line-height: 0.01;"></p>
+				<p id="def-fodder" style="line-height: 0.01;"></p>
+				<p id="def-ammunition" style="line-height: 0.01;"></p>
+				<p id="def-oxcarts" style="line-height: 0.01;"></p>
+				<p id="def-marching-distance" style="line-height: 0.01;"></p>
+			</font size="2">
+			</div>
+		</div>
+	</div>
+	<hr>
+	<script src="random-battle.js"></script>
+	<center>
+		<div class="container">
+			<div>
+				<h3>Scenario</h3>
+				<select id="terrain">
+					<option value="Plains">Plain</option>
+					<option value="Hills">Hill</option>
+					<option value="Forest">Forest</option>
+					<option value="Mountains">Mountain</option>
+					<option value="Marsh">Marsh</option>
+					<option value="Desert">Desert</option>
+					<option value="Siege">Siege</option>
+					<option value="Ambush">Ambush</option>
+					<option value="CampRaid">Camp Raid</option>
+					<option value="RiverCrossing">River Crossing</option>
+					<option value="BridgeCrossing">Bridge Crossing</option>
+					<option value="NavalLanding">Naval Landing</option>
+					<option value="Tournament">Tournament</option>
+				</select>
+				<button id="random-scenario-button" onclick="generateRandomScenario()"> <span>&#9850;</span> </button>
+			</div>
+			<div>
+				<h3>Weather</h3>
+				<select id="weather">
+					<option value="Normal">Clear</option>
+					<option value="Rain">Rain</option>
+					<option value="Snow">Snow</option>
+					<option value="Fog">Fog</option>
+					<option value="Storm">Storm</option>
+					<option value="Mud">Mud</option>
+				</select>
+				<button onclick="randomlyAssignWeather()">&#9850;</button>
+			</div>
+			<div>
+				<h3> Last Stand </h3>
+				<input type="checkbox" id="last-stand-toggle" onclick="toggleLastStand()"> </div>
+		</div>
+		<br>
+		 <button id="press-all-buttons">Randomize All</button>
+	     <script>
+	       // Get the press-all-buttons element
+	       const pressAllButtons = document.getElementById('press-all-buttons');
+
+		   // Add a click event listener to the press-all-buttons button
+		   pressAllButtons.addEventListener('click', function() {
+		     // Get all the buttons on the page
+		     const buttons = document.getElementsByTagName('button');
+
+		     // Trigger the click event of each button, excluding the specified buttons
+		     for (let i = 0; i < buttons.length; i++) {
+		       const button = buttons[i];
+
+		       // Exclude the buttons with the specified onclick attribute values
+		       if (
+		         button.getAttribute('onclick') !== "resetInputs('def')" &&
+		         button.getAttribute('onclick') !== "resetInputs('att')" &&
+			button.getAttribute('onclick') !== "runSimulation(); simulateNobles()"
+		       ) {
+		         button.click();
+		       }
+		     }
+		     const attackerMoraleSelect = document.getElementById('attacker-morale');
+		     const defenderMoraleSelect = document.getElementById('defender-morale');
+
+		     const moraleOptions = ['high', 'average', 'low'];
+
+		     const randomAttackerMoraleIndex = Math.floor(Math.random() * moraleOptions.length);
+		     const randomDefenderMoraleIndex = Math.floor(Math.random() * moraleOptions.length);
+
+		     attackerMoraleSelect.value = moraleOptions[randomAttackerMoraleIndex];
+		     defenderMoraleSelect.value = moraleOptions[randomDefenderMoraleIndex];
+		   });
+	     </script>
+		<button onclick="runSimulation(); simulateNobles()">Simulate Battle</button>
+		<div id="battle-results"></div>
+	</center>
+	<br>
+    <script>
+       function runSimulation() {
+         // Get the user-defined battle title
+         const battleTitle = document.getElementById('battle-title').value;
+         const attackerTitle = document.getElementById('attacker-title').value;
+         // Attacking Army
+         const attCommander = document.getElementById('att-commander').value;
+         const attKnights = parseInt(document.getElementById('att-knights').value);
+         const attLightcav = parseInt(document.getElementById('att-lightcav').value);
+         const attCavarcher = parseInt(document.getElementById('att-cavarcher').value);
+         const attPikemen = parseInt(document.getElementById('att-pikemen').value);
+         const attHalberd = parseInt(document.getElementById('att-halberd').value);
+         const attInfantry = parseInt(document.getElementById('att-infantry').value);
+         const attLevy = parseInt(document.getElementById('att-levy').value);
+         const attArchers = parseInt(document.getElementById('att-archers').value);
+         const attCrossbow = parseInt(document.getElementById('att-crossbow').value);
+         const attHandgunner = parseInt(document.getElementById('att-handgunner').value);
+         const attSkirmishers = parseInt(document.getElementById('att-skirmishers').value);
+         const attMecharty = parseInt(document.getElementById('att-mecharty').value);
+         const attLightguns = parseInt(document.getElementById('att-lightguns').value);
+         const attBombards = parseInt(document.getElementById('att-bombards').value);
+         // Defending Army
+         const defCommander = document.getElementById('def-commander').value;
+         const defKnights = parseInt(document.getElementById('def-knights').value);
+         const defLightcav = parseInt(document.getElementById('def-lightcav').value);
+         const defCavarcher = parseInt(document.getElementById('def-cavarcher').value);
+         const defPikemen = parseInt(document.getElementById('def-pikemen').value);
+         const defHalberd = parseInt(document.getElementById('def-halberd').value);
+         const defInfantry = parseInt(document.getElementById('def-infantry').value);
+         const defLevy = parseInt(document.getElementById('def-levy').value);
+         const defArchers = parseInt(document.getElementById('def-archers').value);
+         const defCrossbow = parseInt(document.getElementById('def-crossbow').value);
+         const defHandgunner = parseInt(document.getElementById('def-handgunner').value);
+         const defSkirmishers = parseInt(document.getElementById('def-skirmishers').value);
+         const defMecharty = parseInt(document.getElementById('def-mecharty').value);
+         const defLightguns = parseInt(document.getElementById('def-lightguns').value);
+         const defBombards = parseInt(document.getElementById('def-bombards').value);
+         // Terrain
+         const terrain = document.getElementById('terrain').value;
+         // Weather
+         const weather = document.getElementById('weather').value;
+         // Troop Composition
+         const attackingArmy = {
+           "Men-at-Arms": attKnights,
+           "Light Cavalry": attLightcav,
+           "Mounted Archers": attCavarcher,
+           Pikemen: attPikemen,
+           Halberdiers: attHalberd,
+           Infantry: attInfantry,
+           "Peasant Levy": attLevy,
+           Archers: attArchers,
+           Skirmishers: attSkirmishers,
+           Crossbowmen: attCrossbow,
+           Handgunners: attHandgunner,
+           "Mechanical Artillery": attMecharty,
+           "Light Guns": attLightguns,
+           Bombards: attBombards,
+         };
+         const defendingArmy = {
+           "Men-at-Arms": defKnights,
+           "Light Cavalry": defLightcav,
+           "Mounted Archers": defCavarcher,
+           Pikemen: defPikemen,
+           Halberdiers: defHalberd,
+           Infantry: defInfantry,
+           "Peasant Levy": defLevy,
+           Archers: defArchers,
+           Skirmishers: defSkirmishers,
+           Crossbowmen: defCrossbow,
+           Handgunners: defHandgunner,
+           "Mechanical Artillery": defMecharty,
+           "Light Guns": defLightguns,
+           Bombards: defBombards,
+         };
+         const battleOutcome = simulateBattle(attackingArmy, defendingArmy, terrain, weather);
+         displayBattleResults(battleOutcome);
+       }
+
+       function randomlyAssignWeather() {
+         var weatherOptions = ["Normal", "Rain", "Snow", "Fog", "Storm", "Mud"];
+         var randomIndex = Math.floor(Math.random() * weatherOptions.length);
+         var weatherSelect = document.getElementById("weather");
+         weatherSelect.value = weatherOptions[randomIndex];
+       }
+
+       function simulateBattle(attackingArmy, defendingArmy, terrain, weather) {
+         const lastStandEnabled = document.getElementById('last-stand-toggle').checked;
+         const totalAttackingTroops = getTotalTroops(attackingArmy);
+         const totalDefendingTroops = getTotalTroops(defendingArmy);
+         const attackingBonus = Math.floor((totalAttackingTroops - totalDefendingTroops) / (totalDefendingTroops / 10));
+         const defendingBonus = Math.floor((totalDefendingTroops - totalAttackingTroops) / (totalAttackingTroops / 10));
+         const attackingStrength = totalAttackingTroops * (1 + attackingBonus * 0.007);
+         const defendingStrength = totalDefendingTroops * (1 + defendingBonus * 0.0075);
+
+
+         const terrainTroopWeights = {
+           Plains: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 1.05,
+               "Light Cavalry": 1.20 * 1.05,
+               "Mounted Archers": 1.23,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15 * 1.05,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 20.05,
+               Bombards: 1.20 * 1.05,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.22,
+               Pikemen: 1.15 * 1.05,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 20.25,
+               Bombards: 1.20 * 1.25,
+             },
+           },
+           Hills: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.9,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.20,
+               Pikemen: 1.15 * 0.95,
+               Infantry: 1.15 * 0.95,
+               "Peasant Levy": 1.00 * 0.95,
+               Archers: 1.10 * 0.95,
+               Skirmishers: 1.08 * 0.9,
+               Halberdiers: 1.15 * 0.95,
+               Crossbowmen: 1.13 * 0.9,
+               Handgunners: 1.15 * 0.9,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 18.9,
+               Bombards: 1.20 * 0.8,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.20,
+               Pikemen: 1.15 * 1.05,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10 * 1.05,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20,
+               "Light Guns": 1.20 * 20.05,
+               Bombards: 1.20,
+             },
+           },
+           Forest: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.95,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.00,
+               Pikemen: 1.15 * 0.95,
+               Infantry: 1.15 * 0.95,
+               "Peasant Levy": 1.00,
+               Archers: 1.10 * 0.95,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15 * 0.95,
+               Crossbowmen: 1.13 * 0.9,
+               Handgunners: 1.15 * 0.9,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 5.9,
+               Bombards: 1.20 * 0.8,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35 * 0.95,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.00,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 6.0,
+               Bombards: 1.20,
+             },
+           },
+           Mountains: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.95,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.00,
+               Pikemen: 1.15 * 0.95,
+               Infantry: 1.15 * 0.95,
+               "Peasant Levy": 1.00 * 0.95,
+               Archers: 1.10 * 0.95,
+               Skirmishers: 1.08 * 0.95,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13 * 0.9,
+               Handgunners: 1.15 * 0.9,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 15.9,
+               Bombards: 1.20 * 0.8,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.00,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20,
+               "Light Guns": 1.20 * 17,
+               Bombards: 1.20,
+             },
+           },
+           Marsh: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.85,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.05,
+               Pikemen: 1.15 * 0.9,
+               Infantry: 1.15 * 0.9,
+               "Peasant Levy": 1.00 * 0.9,
+               Archers: 1.10 * 0.9,
+               Skirmishers: 1.08 * 0.9,
+               Halberdiers: 1.15 * 0.9,
+               Crossbowmen: 1.13 * 0.9,
+               Handgunners: 1.15 * 0.9,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 10.9,
+               Bombards: 1.20 * 0.8,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35 * 0.95,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.05,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 12.9,
+               Bombards: 1.20 * 0.8,
+             },
+           },
+           Desert: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.25,
+               "Mounted Archers": 1.25,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20,
+               "Light Guns": 1.20 * 19.05,
+               Bombards: 1.20,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.25,
+               "Mounted Archers": 1.25,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20,
+               "Light Guns": 1.20 * 19.05,
+               Bombards: 1.20,
+             },
+           },
+           Siege: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.9,
+               "Light Cavalry": 1.20,
+               "Mounted Archers": 1.10 * 0.8,
+               Pikemen: 1.15 * 0.8,
+               Infantry: 1.15 * 0.9,
+               "Peasant Levy": 1.00 * 0.8,
+               Archers: 1.10 * 0.8,
+               Skirmishers: 1.08 * 0.8,
+               Halberdiers: 1.15 * 0.8,
+               Crossbowmen: 1.13 * 0.85,
+               Handgunners: 1.15 * 0.85,
+               "Mechanical Artillery": 1.20 * 54.9,
+               "Light Guns": 1.20 * 54.8,
+               Bombards: 1.20 * 75.8,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+              "Mounted Archers": 1.10,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 12.00,
+               "Light Guns": 1.20 * 22.0,
+               Bombards: 1.20,
+             },
+           },
+           Ambush: {
+             attackingTroops: {
+               "Men-at-Arms": 1.55,
+               "Light Cavalry": 1.45,
+              "Mounted Archers": 1.45,
+               Pikemen: 1.3,
+               Infantry: 1.3,
+               "Peasant Levy": 1.15,
+               Archers: 1.3,
+               Skirmishers: 1.21,
+               Halberdiers: 1.28,
+               Crossbowmen: 1.25,
+               Handgunners: 1.27,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 15.05,
+               Bombards: 1.20,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.25,
+               "Light Cavalry": 1.00,
+              "Mounted Archers": 1.00,
+               Pikemen: 1.05,
+               Infantry: 1.05,
+               "Peasant Levy": 1.00,
+               Archers: 1.02,
+               Skirmishers: 1.02,
+               Halberdiers: 1.05,
+               Crossbowmen: 1.05,
+               Handgunners: 1.05,
+               "Mechanical Artillery": 1.0,
+               "Light Guns": 1.0,
+               Bombards: 1.0,
+             },
+           },
+           CampRaid: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.40,
+              "Mounted Archers": 1.40,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 15.05,
+               Bombards: 1.20,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35 * 0.8,
+               "Light Cavalry": 1.40 * 0.8,
+              "Mounted Archers": 1.40 * 0.8,
+               Pikemen: 1.15 * 0.8,
+               Infantry: 1.15 * 0.8,
+               "Peasant Levy": 1.00 * 0.8,
+               Archers: 1.10 * 0.8,
+               Skirmishers: 1.08 * 0.8,
+               Halberdiers: 1.15 * 0.8,
+               Crossbowmen: 1.13 * 0.8,
+               Handgunners: 1.15 * 0.8,
+               "Mechanical Artillery": 1.20 * 0.8,
+               "Light Guns": 1.20 * 0.8,
+               Bombards: 1.20 * 0.8
+             },
+           },
+           RiverCrossing: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.8,
+               "Light Cavalry": 1.40 * 0.8,
+              "Mounted Archers": 1.40 * 0.8,
+               Pikemen: 1.15 * 0.8,
+               Infantry: 1.15 * 0.8,
+               "Peasant Levy": 1.00 * 0.8,
+               Archers: 1.10 * 0.8,
+               Skirmishers: 1.08 * 0.8,
+               Halberdiers: 1.15 * 0.8,
+               Crossbowmen: 1.13 * 0.8,
+               Handgunners: 1.15 * 0.8,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 15.05,
+               Bombards: 1.20 * 0.8
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+              "Mounted Archers": 1.20,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 25.05,
+               Bombards: 1.20,
+             },
+           },
+           BridgeCrossing: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.8,
+               "Light Cavalry": 1.20 * 0.8,
+              "Mounted Archers": 1.20 * 0.8,
+               Pikemen: 1.15 * 0.8,
+               Infantry: 1.15 * 0.8,
+               "Peasant Levy": 1.00 * 0.8,
+               Archers: 1.10 * 0.8,
+               Skirmishers: 1.08 * 0.8,
+               Halberdiers: 1.15 * 0.8,
+               Crossbowmen: 1.13 * 0.8,
+               Handgunners: 1.15 * 0.8,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 0.8 * 20.05,
+               Bombards: 1.20 * 0.8
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+              "Mounted Archers": 1.20,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 25.05,
+               Bombards: 1.20,
+             },
+           },
+           NavalLanding: {
+             attackingTroops: {
+               "Men-at-Arms": 1.35 * 0.8,
+               "Light Cavalry": 1.20 * 0.8,
+              "Mounted Archers": 1.20 * 0.78,
+               Pikemen: 1.15 * 0.8,
+               Infantry: 1.15 * 0.8,
+               "Peasant Levy": 1.00 * 0.8,
+               Archers: 1.10 * 0.8,
+               Skirmishers: 1.08 * 0.8,
+               Halberdiers: 1.15 * 0.8,
+               Crossbowmen: 1.13 * 0.8,
+               Handgunners: 1.15 * 0.8,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 0.8,
+               Bombards: 1.20 * 0.8
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+              "Mounted Archers": 1.20,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20 * 1.05,
+               "Light Guns": 1.20 * 35.05,
+               Bombards: 1.20 * 15.05,
+             },
+           },
+           Tournament: {
+           // Tournament is more of a testbed for determining proper troop weights.
+             attackingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+              "Mounted Archers": 1.20,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20,
+               "Light Guns": 1.20,
+               Bombards: 1.20,
+             },
+             defendingTroops: {
+               "Men-at-Arms": 1.35,
+               "Light Cavalry": 1.20,
+              "Mounted Archers": 1.20,
+               Pikemen: 1.15,
+               Infantry: 1.15,
+               "Peasant Levy": 1.00,
+               Archers: 1.10,
+               Skirmishers: 1.08,
+               Halberdiers: 1.15,
+               Crossbowmen: 1.13,
+               Handgunners: 1.15,
+               "Mechanical Artillery": 1.20,
+               "Light Guns": 1.20,
+               Bombards: 1.20,
+             },
+           },
+         };
+         const weatherTroopWeights = {
+           Rain: {
+             attackingTroops: {
+               // add weather-specific troop weights for attacking troops in rain
+               "Men-at-Arms": 0.95,
+               "Light Cavalry": 1.00,
+              "Mounted Archers": 0.97,
+               Pikemen: 0.98,
+               Halberdiers: 0.98,
+               Infantry: 0.98,
+               "Peasant Levy": 0.95,
+               Archers: 0.96,
+               Crossbowmen: 0.95,
+               Handgunners: 0.95,
+               Skirmishers: 0.97,
+               "Light Guns": 0.95,
+               Bombards: 0.95,
+               "Mechanical Artillery": 1.00,
+             },
+             defendingTroops: {
+               // add weather-specific troop weights for defending troops in rain
+               "Men-at-Arms": 1.05,
+               "Light Cavalry": 1.06,
+              "Mounted Archers": 1.03,
+               Pikemen: 1.02,
+               Halberdiers: 1.02,
+               Infantry: 1.02,
+               "Peasant Levy": 1.05,
+               Archers: 1.04,
+               Crossbowmen: 1.05,
+               Handgunners: 0.95,
+               Skirmishers: 1.03,
+               "Light Guns": 0.95,
+               Bombards: 0.95,
+               "Mechanical Artillery": 1.00,
+             },
+           },
+           Snow: {
+             attackingTroops: {
+               // add weather-specific troop weights for attacking troops in snow
+               "Men-at-Arms": 0.98,
+               "Light Cavalry": 1.00,
+              "Mounted Archers": 1.00,
+               Pikemen: 0.98,
+               Halberdiers: 0.98,
+               Infantry: 0.98,
+               "Peasant Levy": 0.95,
+               Archers: 0.96,
+               Crossbowmen: 0.95,
+               Handgunners: 0.95,
+               Skirmishers: 0.97,
+               "Light Guns": 1.95,
+               Bombards: 1.95,
+               "Mechanical Artillery": 2.00,
+             },
+             defendingTroops: {
+               // add weather-specific troop weights for defending troops in snow
+               "Men-at-Arms": 1.12,
+               "Light Cavalry": 1.13,
+              "Mounted Archers": 1.12,
+               Pikemen: 1.02,
+               Halberdiers: 1.02,
+               Infantry: 1.02,
+               "Peasant Levy": 1.05,
+               Archers: 1.04,
+               Crossbowmen: 1.05,
+               Handgunners: 0.95,
+               Skirmishers: 1.03,
+               "Light Guns": 1.95,
+               Bombards: 1.95,
+               "Mechanical Artillery": 2.00,
+             },
+           },
+           Fog: {
+             attackingTroops: {
+               // add weather-specific troop weights for attacking troops in fog
+               "Men-at-Arms": 0.98,
+               "Light Cavalry": 0.98,
+              "Mounted Archers": 0.95,
+               Pikemen: 0.98,
+               Halberdiers: 0.98,
+               Infantry: 0.98,
+               "Peasant Levy": 0.95,
+               Archers: 0.95,
+               Crossbowmen: 0.95,
+               Handgunners: 0.95,
+               Skirmishers: 0.97,
+               "Light Guns": 1.65,
+               Bombards: 1.65,
+               "Mechanical Artillery": 2.00,
+             },
+             defendingTroops: {
+               // add weather-specific troop weights for defending troops in fog
+               "Men-at-Arms": 1.01,
+               "Light Cavalry": 1.01,
+              "Mounted Archers": 0.95,
+               Pikemen: 1.01,
+               Halberdiers: 1.01,
+               Infantry: 1.01,
+               "Peasant Levy": 1.0,
+               Archers: 0.95,
+               Crossbowmen: 0.95,
+               Handgunners: 0.94,
+               Skirmishers: 0.98,
+               "Light Guns": 1.75,
+               Bombards: 1.75,
+               "Mechanical Artillery": 2.00,
+             },
+           },
+           Storm: {
+             attackingTroops: {
+               // add weather-specific troop weights for attacking troops in storm
+               "Men-at-Arms": 0.95,
+               "Light Cavalry": 0.98,
+              "Mounted Archers": 0.95,
+               Pikemen: 0.95,
+               Halberdiers: 0.95,
+               Infantry: 0.95,
+               "Peasant Levy": 0.95,
+               Archers: 0.95,
+               Crossbowmen: 0.95,
+               Handgunners: 0.95,
+               Skirmishers: 0.97,
+               "Light Guns": 0.95,
+               Bombards: 0.95,
+               "Mechanical Artillery": 1.90,
+             },
+             defendingTroops: {
+               // add weather-specific troop weights for defending troops in storm
+               "Men-at-Arms": 1.05,
+               "Light Cavalry": 1.06,
+              "Mounted Archers": 1.04,
+               Pikemen: 1.02,
+               Halberdiers: 1.02,
+               Infantry: 1.02,
+               "Peasant Levy": 1.05,
+               Archers: 1.04,
+               Crossbowmen: 1.05,
+               Handgunners: 0.95,
+               Skirmishers: 1.03,
+               "Light Guns": 0.95,
+               Bombards: 0.95,
+               "Mechanical Artillery": 1.90,
+             },
+           },
+           Mud: {
+             attackingTroops: {
+               // add weather-specific troop weights for attacking troops in mud
+               "Men-at-Arms": 0.95,
+               "Light Cavalry": 0.98,
+              "Mounted Archers": 0.99,
+               Pikemen: 0.96,
+               Halberdiers: 0.96,
+               Infantry: 0.96,
+               "Peasant Levy": 0.95,
+               Archers: 0.98,
+               Crossbowmen: 0.98,
+               Handgunners: 0.98,
+               Skirmishers: 0.96,
+               "Light Guns": 1.95,
+               Bombards: 1.95,
+               "Mechanical Artillery": 1.80,
+             },
+             defendingTroops: {
+               // add weather-specific troop weights for defending troops in mud
+               "Men-at-Arms": 1.08,
+               "Light Cavalry": 1.09,
+              "Mounted Archers": 1.08,
+               Pikemen: 1.02,
+               Halberdiers: 1.02,
+               Infantry: 1.02,
+               "Peasant Levy": 1.04,
+               Archers: 1.04,
+               Crossbowmen: 1.05,
+               Handgunners: 0.98,
+               Skirmishers: 1.03,
+               "Light Guns": 2.35,
+               Bombards: 2.35,
+               "Mechanical Artillery": 1.90,
+             },
+           },
+         };
+		 const attackerMoraleTroopWeights = {
+		   high: {
+		     attackingTroops: {
+		       "Men-at-Arms": 1.35,
+		       "Light Cavalry": 1.2,
+		       "Mounted Archers": 1.15,
+		       Pikemen: 1.2,
+		       Halberdiers: 1.2,
+		       Infantry: 1.2,
+		       "Peasant Levy": 1.1,
+		       Archers: 1.1,
+		       Skirmishers: 1.15,
+		       Crossbowmen: 1.15,
+		       Handgunners: 1.15,
+		       "Mechanical Artillery": 1.1,
+		       "Light Guns": 1.1,
+		       Bombards: 1.1,
+		     }
+		   },
+		   average: {
+  		     attackingTroops: {
+  		       "Men-at-Arms": 1.25,
+  		       "Light Cavalry": 1.15,
+  		       "Mounted Archers": 1.05,
+  		       Pikemen: 1.1,
+  		       Halberdiers: 1.1,
+  		       Infantry: 1.1,
+  		       "Peasant Levy": 1.0,
+  		       Archers: 1.0,
+  		       Skirmishers: 1.0,
+  		       Crossbowmen: 1.0,
+  		       Handgunners: 1.0,
+  		       "Mechanical Artillery": 1.0,
+  		       "Light Guns": 1.0,
+  		       Bombards: 1.0,
+  		     }
+		   },
+		   low: {
+    		     attackingTroops: {
+    		       "Men-at-Arms": 1.1,
+    		       "Light Cavalry": 1.0,
+    		       "Mounted Archers": 0.9,
+    		       Pikemen: 1.0,
+    		       Halberdiers: 1.0,
+    		       Infantry: 0.9,
+    		       "Peasant Levy": 0.8,
+    		       Archers: 0.9,
+    		       Skirmishers: 0.9,
+    		       Crossbowmen: 0.9,
+    		       Handgunners: 0.9,
+    		       "Mechanical Artillery": 0.9,
+    		       "Light Guns": 0.9,
+    		       Bombards: 0.9,
+    		     }
+		   }
+		 };
+
+		 const defenderMoraleTroopWeights = {
+  		   high: {
+  		     defendingTroops: {
+  		       "Men-at-Arms": 1.35,
+  		       "Light Cavalry": 1.2,
+  		       "Mounted Archers": 1.15,
+  		       Pikemen: 1.2,
+  		       Halberdiers: 1.2,
+  		       Infantry: 1.2,
+  		       "Peasant Levy": 1.1,
+  		       Archers: 1.1,
+  		       Skirmishers: 1.15,
+  		       Crossbowmen: 1.15,
+  		       Handgunners: 1.15,
+  		       "Mechanical Artillery": 1.1,
+  		       "Light Guns": 1.1,
+  		       Bombards: 1.1,
+		     }
+  		   },
+  		   average: {
+    		     defendingTroops: {
+  		       "Men-at-Arms": 1.25,
+  		       "Light Cavalry": 1.15,
+  		       "Mounted Archers": 1.05,
+  		       Pikemen: 1.1,
+  		       Halberdiers: 1.1,
+  		       Infantry: 1.1,
+  		       "Peasant Levy": 1.0,
+  		       Archers: 1.0,
+  		       Skirmishers: 1.0,
+  		       Crossbowmen: 1.0,
+  		       Handgunners: 1.0,
+  		       "Mechanical Artillery": 1.0,
+  		       "Light Guns": 1.0,
+  		       Bombards: 1.0,
+  		     }
+  		   },
+  		   low: {
+      		     defendingTroops: {
+    		       "Men-at-Arms": 1.1,
+    		       "Light Cavalry": 1.0,
+    		       "Mounted Archers": 0.9,
+    		       Pikemen: 1.0,
+    		       Halberdiers: 1.0,
+    		       Infantry: 0.9,
+    		       "Peasant Levy": 0.8,
+    		       Archers: 0.9,
+    		       Skirmishers: 0.9,
+    		       Crossbowmen: 0.9,
+    		       Handgunners: 0.9,
+    		       "Mechanical Artillery": 0.9,
+    		       "Light Guns": 0.9,
+    		       Bombards: 0.9,
+      		     }
+  		   }
+  		 };
+		 
+         const attackerMorale = document.getElementById('attacker-morale').value;
+         const defenderMorale = document.getElementById('defender-morale').value;
+
+         const terrainWeights = terrainTroopWeights[terrain] || terrainTroopWeights.Default;
+		 
+		 const attackingTroopWeights = {
+		   ...terrainWeights.attackingTroops,
+		   ...weatherTroopWeights[weather]?.attackingTroops,
+		   ...attackerMoraleTroopWeights[attackerMorale]?.attackingTroops,
+		 };
+
+		 const defendingTroopWeights = {
+		   ...terrainWeights.defendingTroops,
+		   ...weatherTroopWeights[weather]?.defendingTroops,
+		   ...defenderMoraleTroopWeights[defenderMorale]?.defendingTroops,
+		 };
+
+		 
+         const battleOutcome = {
+           army1: {
+             surviving: {
+               ...attackingArmy
+             },
+             woundedInAction: {},
+             killedInAction: {},
+           },
+           army2: {
+             surviving: {
+               ...defendingArmy
+             },
+             woundedInAction: {},
+             killedInAction: {},
+           },
+         };
+         const troopTypes = Object.keys(attackingArmy);
+         for (const troopType of troopTypes) {
+           const attackingTroopCount = attackingArmy[troopType];
+           const defendingTroopCount = defendingArmy[troopType];
+           const attackingTroopWeight = attackingTroopWeights[troopType];
+           const defendingTroopWeight = defendingTroopWeights[troopType];
+           const attackingRandomFactor = getRandomFactor(terrain);
+           const defendingRandomFactor = getRandomFactor(terrain);
+           const attackingRandomFactorCasualties = getRandomFactor(1.0); // Additional randomness for casualties
+           const defendingRandomFactorCasualties = getRandomFactor(1.0); // Additional randomness for casualties
+           const attackingRandomFactorSurvivors = getRandomFactor(1.0); // Additional randomness for survivors
+           const defendingRandomFactorSurvivors = getRandomFactor(1.0); // Additional randomness for survivors
+           const maxAttackingSurvivors = Math.min(attackingTroopCount, Math.ceil(attackingTroopCount * attackingRandomFactor * attackingTroopWeight * attackingRandomFactorSurvivors * (1 + attackingBonus * 0.007) // Apply attacking bonus
+           ));
+           const maxDefendingSurvivors = Math.min(defendingTroopCount, Math.ceil(defendingTroopCount * defendingRandomFactor * defendingTroopWeight * defendingRandomFactorSurvivors * (1 + defendingBonus * 0.0075) // Apply attacking bonus
+           ));
+           const maxAttackingCasualties = Math.max(attackingTroopCount - maxAttackingSurvivors, 0);
+           const maxDefendingCasualties = Math.max(defendingTroopCount - maxDefendingSurvivors, 0);
+           let modifiedAttackingRandomFactorCasualties = attackingRandomFactorCasualties;
+           let modifiedDefendingRandomFactorCasualties = defendingRandomFactorCasualties;
+           if (lastStandEnabled) {
+             modifiedAttackingRandomFactorCasualties *= getRandomFactorInRange(10, 20);
+             modifiedDefendingRandomFactorCasualties *= getRandomFactorInRange(10, 20);
+           } else {
+             modifiedAttackingRandomFactorCasualties *= getRandomFactorInRange(0.2, 0.6);
+             modifiedDefendingRandomFactorCasualties *= getRandomFactorInRange(0.2, 0.6);
+           }
+
+           function getRandomFactorInRange(min, max) {
+             return Math.random() * (max - min) + min;
+           }
+           const attackingCasualties = Math.floor(maxAttackingCasualties * modifiedAttackingRandomFactorCasualties);
+           const defendingCasualties = Math.floor(maxDefendingCasualties * modifiedDefendingRandomFactorCasualties);
+           // Calculate the maximum possible WIA count for a troop type
+           const maxAttackingWounded = Math.min(attackingCasualties, Math.max(attackingTroopCount - maxAttackingSurvivors, 0));
+           const maxDefendingWounded = Math.min(defendingCasualties, Math.max(defendingTroopCount - maxDefendingSurvivors, 0));
+           // Calculate the maximum possible KIA count for a troop type
+           const randomFactor = Math.floor(Math.random() * 4) + 2; // Generates a random factor between 2 and 4 (inclusive)
+           const maxAttackingKilled = randomFactor * Math.floor(maxAttackingWounded * 0.25);
+           const maxDefendingKilled = randomFactor * Math.floor(maxDefendingWounded * 0.25);
+           // Calculate the actual WIA count for a troop type
+           const attackingWounded = Math.min(maxAttackingWounded, Math.max(attackingTroopCount - maxAttackingSurvivors, 0));
+           const defendingWounded = Math.min(maxDefendingWounded, Math.max(defendingTroopCount - maxDefendingSurvivors, 0));
+           // Calculate the actual KIA count for a troop type
+           const attackingKilled = Math.min(maxAttackingKilled, maxAttackingSurvivors);
+           const defendingKilled = Math.min(maxDefendingKilled, maxDefendingSurvivors);
+           // Calculate the remaining surviving troops
+           const attackingSurvivors = Math.max(attackingTroopCount - (attackingWounded + attackingKilled), 0);
+           const defendingSurvivors = Math.max(defendingTroopCount - (defendingWounded + defendingKilled), 0);
+           battleOutcome.army1.surviving[troopType] = attackingSurvivors;
+           battleOutcome.army1.woundedInAction[troopType] = attackingWounded;
+           battleOutcome.army1.killedInAction[troopType] = attackingKilled;
+           battleOutcome.army2.surviving[troopType] = defendingSurvivors;
+           battleOutcome.army2.woundedInAction[troopType] = defendingWounded;
+           battleOutcome.army2.killedInAction[troopType] = defendingKilled;
+         }
+         return battleOutcome;
+       }
+
+       function getTotalTroops(army) {
+         let total = 0;
+         for (const troopType in army) {
+           total += army[troopType];
+         }
+         return total;
+       }
+           // Factors in terrain on the overall casualty counts. Lower values = higher casualties. Wider ranges = more random
+       function getRandomFactor(terrain) {
+         switch (terrain) {
+           case 'Plains':
+             return generateRandomDecimal(0.40, 0.850);
+           case 'Hills':
+             return generateRandomDecimal(0.40, 0.850);
+           case 'Forest':
+             return generateRandomDecimal(0.50, 0.875);
+           case 'Mountains':
+             return generateRandomDecimal(0.50, 0.875);
+           case 'Marsh':
+             return generateRandomDecimal(0.40, 0.850);
+           case 'Desert':
+             return generateRandomDecimal(0.40, 0.850);
+           case 'Siege':
+             return generateRandomDecimal(0.45, 0.825);
+           case 'Ambush':
+             return generateRandomDecimal(0.35, 0.775);
+           case 'CampRaid':
+             return generateRandomDecimal(0.35, 0.875);
+           case 'RiverCrossing':
+             return generateRandomDecimal(0.35, 0.875);
+           case 'BridgeCrossing':
+             return generateRandomDecimal(0.35, 0.875);
+           case 'NavalLanding':
+             return generateRandomDecimal(0.35, 0.775);
+           case 'Tournament':
+             return generateRandomDecimal(0.50, 0.875);
+           default:
+             return generateRandomDecimal(1, 1.2);
+         }
+       }
+
+       function generateRandomDecimal(min, max) {
+         return Math.random() * (max - min) + min;
+       }
+       var battleTitle; // Declare the variable outside the function to make it accessible
+       var attackerTitle;
+       var defenderTitle;
+       var attCommander;
+       var defCommander;
+       // Initialize counters
+       let attackerWins = 0;
+       let defenderWins = 0;
+       let indecisive = 0;
+
+       function displayBattleResults(battleOutcome) {
+         battleTitle = document.getElementById("battle-title").value;
+         attackerTitle = document.getElementById("attacker-title").value;
+         defenderTitle = document.getElementById("defender-title").value;
+         attCommander = document.getElementById("att-commander").value;
+         defCommander = document.getElementById("def-commander").value;
+         const resultsContainer = document.getElementById('battle-results');
+         resultsContainer.innerHTML = '';
+         const battleBox = document.createElement('div');
+         battleBox.classList.add('battle-box');
+         const title = document.createElement('h3');
+         title.textContent = battleTitle || 'Battle Outcome';
+         battleBox.appendChild(title);
+         const table = document.createElement('table');
+         const headerRow = document.createElement('tr');
+         const headers = ['Troop', attackerTitle || 'Attackers', defenderTitle || 'Defenders'];
+         for (const header of headers) {
+           const th = document.createElement('th');
+           th.textContent = header;
+           headerRow.appendChild(th);
+         }
+         table.appendChild(headerRow);
+         const troopTypes = Object.keys(battleOutcome.army1.surviving);
+         for (const troopType of troopTypes) {
+           const row = document.createElement('tr');
+           const troopTypeCell = document.createElement('td');
+           troopTypeCell.textContent = troopType;
+           row.appendChild(troopTypeCell);
+           const army1Cell = document.createElement('td');
+           army1Cell.textContent = `${battleOutcome.army1.surviving[troopType]} Survivors (${battleOutcome.army1.woundedInAction[troopType]} WIA, ${battleOutcome.army1.killedInAction[troopType]} KIA)`;
+           row.appendChild(army1Cell);
+           const army2Cell = document.createElement('td');
+           army2Cell.textContent = `${battleOutcome.army2.surviving[troopType]} Survivors (${battleOutcome.army2.woundedInAction[troopType]} WIA, ${battleOutcome.army2.killedInAction[troopType]} KIA)`;
+           row.appendChild(army2Cell);
+           table.appendChild(row);
+         }
+         const army1Survivors = getTotalTroops(battleOutcome.army1.surviving);
+         const army1Casualties = getTotalTroops(battleOutcome.army1.woundedInAction) + getTotalTroops(battleOutcome.army1.killedInAction);
+         const army2Survivors = getTotalTroops(battleOutcome.army2.surviving);
+         const army2Casualties = getTotalTroops(battleOutcome.army2.woundedInAction) + getTotalTroops(battleOutcome.army2.killedInAction);
+         const army1RemainingTroops = army1Survivors - army1Casualties;
+         const army2RemainingTroops = army2Survivors - army2Casualties;
+         const army1Percentage = Math.round((army1Survivors / (army1Survivors + army1Casualties)) * 100);
+         const army2Percentage = Math.round((army2Survivors / (army2Survivors + army2Casualties)) * 100);
+         let winner;
+         let routedArmy;
+         let outcomeColorClass = '';
+         if (army1RemainingTroops >= 3 * army2RemainingTroops) {
+           if (army1Percentage > army2Percentage) {
+             // Attacker wins
+             let attacker = attackerTitle || 'Attacker';
+             if (!attacker.startsWith('The ')) {
+               attacker = `The ${attacker}`;
+             }
+             if (army1Casualties / army2Casualties >= 2.25) {
+               winner = `${attacker} achieved Total Victory`;
+             } else {
+               winner = `${attacker} won a Major Victory`;
+             }
+             routedArmy = defenderTitle || 'Defender';
+             outcomeColorClass = 'army attackers'; // Set class for attackers (red)
+             // Increment attacker wins
+             attackerWins++;
+           } else if (army1Percentage < army2Percentage) {
+             // Defender wins
+             let defender = defenderTitle || 'Defender';
+             if (!defender.startsWith('The ')) {
+               defender = `The ${defender}`;
+             }
+             if (army2Casualties / army1Casualties >= 2.0) {
+               winner = `${defender} won a Pyrrhic Victory`;
+             } else {
+               winner = `${defender} achieved victory`;
+             }
+             routedArmy = attackerTitle || 'Attacker';
+             outcomeColorClass = 'army defenders'; // Set class for defenders (blue)
+             // Increment defender wins
+             defenderWins++;
+           } else {
+             // Indecisive battle
+             winner = 'The battle is indecisive';
+             outcomeColorClass = 'draw'; // Set class for draw (neutral)
+             // Increment indecisive battles
+             indecisive++;
+           }
+         } else if (army1RemainingTroops >= 2 * army2RemainingTroops) {
+           if (army1Percentage > army2Percentage) {
+             // Attacker wins
+             let attacker = attackerTitle || 'Attacker';
+             if (!attacker.startsWith('The ')) {
+               attacker = `The ${attacker}`;
+             }
+             winner = `${attacker} are victorious`;
+             routedArmy = defenderTitle || 'Defender';
+             outcomeColorClass = 'army attackers'; // Set class for attackers (red)
+             // Increment attacker wins
+             attackerWins++;
+           } else if (army1Percentage < army2Percentage) {
+             // Defender wins
+             let defender = defenderTitle || 'Defender';
+             if (!defender.startsWith('The ')) {
+               defender = `The ${defender}`;
+             }
+             winner = `${defender} achieved victory`;
+             routedArmy = attackerTitle || 'Attacker';
+             outcomeColorClass = 'army defenders'; // Set class for defenders (blue)
+             // Increment defender wins
+             defenderWins++;
+           } else {
+             // Indecisive battle
+             winner = 'Battle ends in a draw';
+             outcomeColorClass = 'draw'; // Set class for draw (neutral)
+             // Increment indecisive battles
+             indecisive++;
+           }
+         } else {
+			 if (army1Percentage > army2Percentage) {
+			   // Attacker wins
+			   let attacker = attackerTitle || 'Attacker';
+			   if (!attacker.startsWith('The ')) {
+			     attacker = `The ${attacker}`;
+			   }
+			   if (army1Casualties / army2Casualties >= 2.25) {
+			     winner = `${attacker} achieved Total Victory`;
+			   } else {
+			     winner = `${attacker} won a Decisive Victory`;
+			   }
+			   routedArmy = `<span style="color: blue">${defenderTitle || 'Defender'}</span>`;
+			   outcomeColorClass = 'army attackers'; // Set class for attackers (red)
+			   // Increment attacker wins
+			   attackerWins++;
+			 } else if (army1Percentage < army2Percentage) {
+			   // Defender wins
+			   let defender = defenderTitle || 'Defender';
+			   if (!defender.startsWith('The ')) {
+			     defender = `The ${defender}`;
+			   }
+			   if (army2Casualties / army1Casualties >= 2.0) {
+			     winner = `${defender} won a Pyrrhic Victory`;
+			   } else {
+			     winner = `${defender} are victorious`;
+			   }
+			   routedArmy = `<span style="color: red">${attackerTitle || 'Attacker'}</span>`;
+			   outcomeColorClass = 'army defenders'; // Set class for defenders (blue)
+			   // Increment defender wins
+			   defenderWins++;
+			 } else {
+			   // Indecisive battle
+			   winner = 'The battle is indecisive';
+			   outcomeColorClass = 'draw'; // Set class for draw (neutral)
+			   // Increment indecisive battles
+			   indecisive++;
+			 }
+         }
+
+         let outcomeMessageHTML = '';
+         if (routedArmy && (army1Casualties / (army1Survivors + army1Casualties) > 0.25 || army2Casualties / (army2Survivors + army2Casualties) > 0.25)) {
+			 let routedArmyMessage = `<strong>${routedArmy} routed during the battle and were pursued!</strong>`;
+			 if (!routedArmy.startsWith('The ')) {
+			   routedArmyMessage = `<strong>The ${routedArmyMessage.replace('The ', '')}</strong>`;
+			 }
+			 outcomeMessageHTML =`
+ 																																								<p class="armyRouted">${routedArmyMessage}<\/p>`;
+         }
+         // Determine if the attacking commander is killed-in-action
+         const isAttCommanderKilled = Math.random() <= 0.15;
+         // Determine if the defending commander is killed-in-action
+         const isDefCommanderKilled = Math.random() <= 0.12;
+         const summary = document.createElement('div');
+         summary.classList.add('total-casualties');
+         let attCommanderOutcomeHTML = '';
+         let defCommanderOutcomeHTML = '';
+         if (isAttCommanderKilled && attCommander !== '') {
+           let attacker = attackerTitle || 'attacker';
+           if (!attacker.startsWith('The ')) {
+             attacker = `The ${attacker}`;
+           }
+           attCommanderOutcomeHTML = `
+ 																																									<p class="commander-killed"><span style="color: red">${attacker}'s commander,<strong> ${attCommander}, was killed in action!</strong></span><\/p>`;
+           // You can replace the attCommanderOutcomeHTML assignment above with the desired logic for displaying a killed attacking commander.
+         } else {
+           attCommanderOutcomeHTML = `
+ 																																										<p class="commander-survived"><\/p>`;
+           // You can replace the attCommanderOutcomeHTML assignment above with the desired logic for displaying a surviving attacking commander.
+         }
+         if (isDefCommanderKilled && defCommander !== '') {
+           let defender = defenderTitle || 'defender';
+           if (!defender.startsWith('The ')) {
+             defender = `The ${defender}`;
+           }
+           defCommanderOutcomeHTML = `
+ 																																											<p class="commander-killed"><span style="color: blue">${defender}'s commander,<strong> ${defCommander}, was killed in action!</strong></span><\/p>`;
+           // You can replace the defCommanderOutcomeHTML assignment above with the desired logic for displaying a killed defending commander.
+         } else {
+           defCommanderOutcomeHTML = `
+ 																																												<p class="commander-survived"><\/p>`;
+           // You can replace the defCommanderOutcomeHTML assignment above with the desired logic for displaying a surviving defending commander.
+         }
+         summary.innerHTML = `
+    
+<table>
+<tr>
+<th>Army</th>
+<th>Force Remaining</th>
+<th>Total Casualties Sustained</th>
+</tr>
+<tr>
+<td>Attackers</td>
+<td>${army1Survivors}</td>
+<td>${army1Casualties}</td>
+</tr>
+<tr>
+<td>Defenders</td>
+<td>${army2Survivors}</td>
+<td>${army2Casualties}</td>
+</tr>
+</table>
+<hr>
+<h3>
+<p class="outcome ${outcomeColorClass}">${winner}!</p>
+</h3>
+<center>
+<p id="outcome">${outcomeMessageHTML}</p>
+</center>
+     ${attCommanderOutcomeHTML}
+     ${defCommanderOutcomeHTML}
+    
+<p id="simulate-nobles-outcome">${simulateNoblesOutcomeHTML}</p>
+<div id="counter">
+<p>
+<sub><span style="color: red">Attacker Victories: ${attackerWins}</span></sub>
+<strong>|</strong>
+<sub><span style="color: blue">Defender Victories: ${defenderWins}</span></sub>
+<strong>|</strong>
+<sub>Indecisive Battles: ${indecisive}</sub>
+</p>
+<p>
+<sub></sub>
+</p>
+<p>
+<sub></sub>
+</p>
+</div>
+ `;
+         // Append the summary to the desired element in your HTML
+         const battleSummaryElement = document.getElementById('summary');
+         battleBox.appendChild(summary);
+         battleBox.appendChild(table);
+         battleBox.appendChild(summary);
+         resultsContainer.appendChild(battleBox);
+       }
+
+	   function simulateNobles() {
+	     // Get the input attacker nobles and split them into an array
+	     const attackersInput = document.getElementById('attackers').value;
+	     const attackers = attackersInput.split(',');
+	     // Get the input defender nobles and split them into an array
+	     const defendersInput = document.getElementById('defenders').value;
+	     const defenders = defendersInput.split(',');
+	     // Initialize arrays to store the dead attacker and defender nobles
+	     const deadAttackers = [];
+	     const deadDefenders = [];
+	     const woundedAttackers = [];
+	     const woundedDefenders = [];
+	     const prisonersAttackers = [];
+	     const prisonersDefenders = [];
+	     const diedOfWoundsAttackers = [];
+	     const diedOfWoundsDefenders = [];
+
+	     // Function to determine the outcome for a noble
+	     function determineOutcome() {
+	       const outcome = Math.random();
+	       if (outcome <= 0.10) {
+	         return 'died in the battle';
+	       } else if (outcome <= 0.15) {
+	         return 'died of their wounds days later';
+	       } else if (outcome <= 0.25) {
+	         return 'was taken prisoner in battle';
+	       } else if (outcome <= 0.30) {
+	         return 'was wounded in battle';
+	       } else {
+	         return 'survived';
+	       }
+	     }
+
+	     // Simulate battle for attacker nobles
+	     attackers.forEach(function(attacker) {
+	       const outcome = determineOutcome();
+	       switch (outcome) {
+	         case 'died in the battle':
+	           deadAttackers.push(attacker);
+	           break;
+	         case 'died of their wounds days later':
+	           diedOfWoundsAttackers.push(attacker);
+	           break;
+	         case 'was taken prisoner in battle':
+	           prisonersAttackers.push(attacker);
+	           break;
+	         case 'was wounded in battle':
+	           woundedAttackers.push(attacker);
+	           break;
+	         case 'survived':
+	           // No action needed for survived nobles
+	           break;
+	       }
+	     });
+
+	     // Simulate battle for defender nobles
+	     defenders.forEach(function(defender) {
+	       const outcome = determineOutcome();
+	       switch (outcome) {
+	         case 'died in the battle':
+	           deadDefenders.push(defender);
+	           break;
+	         case 'died of their wounds days later':
+	           diedOfWoundsDefenders.push(defender);
+	           break;
+	         case 'was taken prisoner in battle':
+	           prisonersDefenders.push(defender);
+	           break;
+	         case 'was wounded in battle':
+	           woundedDefenders.push(defender);
+	           break;
+	         case 'survived':
+	           // No action needed for survived nobles
+	           break;
+	       }
+	     });
+
+	     // Display the outcome
+	     const outcomeElement = document.getElementById('outcome');
+	     const simulateNoblesOutcomeElement = document.getElementById('simulate-nobles-outcome');
+	     let outcomeText = '';
+
+	     if (attackersInput.trim() !== '' && defendersInput.trim() !== '') {
+	       const attackingArmyName = attackerTitle || 'attacking force';
+	       const defendingArmyName = defenderTitle || 'defending force';
+
+		   if (deadAttackers.length > 0) {
+		     const deceasedAttackers = deadAttackers.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: red">Killed in Battle:</span></strong> ${deceasedAttackers.join(', ')}<br>`;
+		   }
+
+		   if (woundedAttackers.length > 0) {
+		     const woundedAttackersText = woundedAttackers.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: red">Wounded:</span></strong> ${woundedAttackersText.join(', ')}<br>`;
+		   }
+
+		   if (diedOfWoundsAttackers.length > 0) {
+		     const diedOfWoundsAttackersText = diedOfWoundsAttackers.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: red">Died of Wounds:</span></strong> ${diedOfWoundsAttackersText.join(', ')}<br>`;
+		   }
+
+		   if (prisonersAttackers.length > 0) {
+		     const prisonersAttackersText = prisonersAttackers.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: red">Taken Prisoner:</span></strong> ${prisonersAttackersText.join(', ')}<br>`;
+		   }
+
+		   if (deadDefenders.length > 0) {
+		     const deceasedDefenders = deadDefenders.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: blue">Killed in Battle:</span></strong> ${deceasedDefenders.join(', ')}<br>`;
+		   }
+
+		   if (woundedDefenders.length > 0) {
+		     const woundedDefendersText = woundedDefenders.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: blue">Wounded:</span></strong> ${woundedDefendersText.join(', ')}<br>`;
+		   }
+
+		   if (diedOfWoundsDefenders.length > 0) {
+		     const diedOfWoundsDefendersText = diedOfWoundsDefenders.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: blue">Died of Wounds:</span></strong> ${diedOfWoundsDefendersText.join(', ')}<br>`;
+		   }
+
+		   if (prisonersDefenders.length > 0) {
+		     const prisonersDefendersText = prisonersDefenders.map(name => `${name}`);
+		     outcomeText += `<strong><span style="color: blue">Taken Prisoner:</span></strong> ${prisonersDefendersText.join(', ')}<br>`;
+		   }
+	     } else {
+	       outcomeText = ''; // Set the outcome text to an empty string
+	     }
+
+	     simulateNoblesOutcomeElement.innerHTML = outcomeText;
+	   }
+
+       // Initialize the simulateNoblesOutcomeHTML variable
+       let simulateNoblesOutcomeHTML = '';
+     </script>
+<br>
+<a href="documentation.txt">Documentation/Changelog</a> 
+<br>v0.9.8
+<br>
+<right> ©Brian Abshier, 2023 </right>
+  </body>
+</html>
